@@ -1,11 +1,9 @@
 # simple-api-flask
-====
+
 Eve is an open source Python REST API framework designed for human beings. It
 allows to effortlessly build and deploy highly customizable, fully featured
 RESTful Web Services.
 
-Be Simple
--------------
 
 Setup
 -------------
@@ -16,7 +14,7 @@ python manage.py
 ```
 
 
-Testing && Production environment
+Testing && Production environment:
 Start with nginx and gunicorn
 ```bash
 sh startup.sh
@@ -31,7 +29,7 @@ The API is now live, ready to be consumed:
 
 ```bash
 
-$ # curl -H "Content-Type: application/json" \
+$ curl -H "Content-Type: application/json" \
 > -H "Token: 67x9UzVcFDgZ4hdev" \
 > -X POST \
 > -d '{"country": "china","province":"jiangsu","city":"suzhou"}' \
@@ -67,8 +65,3 @@ Features
 * Powered by Flask
 
 
-License
--------
-Eve is an open source project,
-distributed under the `BSD license
-<https://github.com/pyeve/eve/blob/master/LICENSE>`_.
