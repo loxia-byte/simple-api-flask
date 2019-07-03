@@ -16,9 +16,9 @@ cfg = config[os.getenv('FLASK_CONFIG') or 'default']
 
 class Todo(Resource):
     parser = reqparse.RequestParser()  # must enter name、age and sex.
-    parser.add_argument('county', type=str, required=True, help='This field can be user name:jim or jack.')
-    parser.add_argument('province', type=str, required=True, help='Must enter the number of the age.')
-    parser.add_argument('city', type=str, required=True, help='This field can be male or female.')
+    parser.add_argument('country', type=str, required=True, help='This field can be country name:china or england.')
+    parser.add_argument('province', type=str, required=True, help='Must enter the province of the country.')
+    parser.add_argument('city', type=str, required=True, help='This field can be city name:shanghai or suzhou.')
     parser.add_argument('Token', location='headers')
 
     def get(self):
@@ -27,7 +27,7 @@ class Todo(Resource):
     def post(self):
 
         data = Todo.parser.parse_args()
-        county = data['county']
+        country = data['country']
         province = data['province']
         city = data['city']
         token = data['Token']
@@ -51,11 +51,11 @@ class Todo(Resource):
 
         resultList = []
 
-        logging.info("Get a put request, county=%s, province=%s, city=%s" % (county, province, city))
+        logging.info("Get a post request, country=%s, province=%s, city=%s" % (country, province, city))
 
-        if county in ['china', 'england']:
+        if country in ['china', 'england']:
             # 针对一个地区进行修改
-            data = cfg.data['info'][county]
+            data = cfg.data['info'][country]
             if isinstance(data, dict):
                 # item = jiangsu/zhejiang/sichuan
                 for item in data:
@@ -63,10 +63,10 @@ class Todo(Resource):
                     if isinstance(data[item], dict):
                         if province == 'jiangsu':
                             # do something
-                            logging.info("Get a put request, province=%s" % province)
+                            logging.info("Get a post request, province=%s" % province)
                         elif province == 'zhejiang':
                             # do something
-                            logging.info("Get a put request, province=%s" % province)
+                            logging.info("Get a post request, province=%s" % province)
                         else:
                             return prepare_json_response(
                                 code=404,
@@ -94,7 +94,7 @@ class Todo(Resource):
             return prepare_json_response(
                     code=404,
                     success=False,
-                    message="Error 404: %s Is Not Exist" % county,
+                    message="Error 404: %s Is Not Exist" % country,
                     data=None
                 )
 
